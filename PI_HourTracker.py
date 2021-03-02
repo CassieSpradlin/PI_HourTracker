@@ -2,6 +2,8 @@
 #data = pd.read_csv('/Users/cassie/Documents/Project_Folder/PI_HourTracker/inventory_hours.csv')
 #data.head()
 
+#Allows user to see when an inventory has to be completed by
+
 clients_byWHS = {
     "Dog Toys Ltd" : "January",
     "Guitar World": "February",
@@ -13,6 +15,7 @@ pi_due = input("Enter client for PI due date: ")
 
 print(clients_byWHS[pi_due])
 
+#Connection to sqlite to allow users to enter new records for inventory tasks and hours
 
 import sqlite3 as db
 
@@ -114,6 +117,9 @@ def view(task=None):
     return results
 
 print (view())
+
+#Pulls records from database by client to show all tasks, hours and dates associated with a particular
+#client.  Also shows count of how many records.
 
 def getClientInfo(client):
 
