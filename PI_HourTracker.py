@@ -1,23 +1,5 @@
-#import pandas as pd
-#data = pd.read_csv('/Users/cassie/Documents/Project_Folder/PI_HourTracker/inventory_hours.csv')
-#data.head()
-
-#Allows user to see when an inventory has to be completed by
-
-clients_byWHS = {
-    "Dog Toys Ltd" : "January",
-    "Guitar World": "February",
-    "Candles and Candles": "April",
-    "Purses and More": "July"   
-}
-
-pi_due = input("Enter client for PI due date: ")
-
-print(clients_byWHS[pi_due])
-
-#Connection to sqlite to allow users to enter new records for inventory tasks and hours
-
 import sqlite3 as db
+import time
 
 def init():
     conn = db.connect("tracker.db")
@@ -36,12 +18,19 @@ def init():
 
 record_list = []
 
-def show_help():
-    print("Add data record for Physical Inventory")
-    print("""
-Enter 'NR' to add another record.
-Enter 'DONE' to stop adding records.
-Enter 'HELP' for this help.
+#Functions
+
+def intro():
+    selection_options = ["1", "2", "3", "4", "5"]
+    user_choice = ""
+    while user_choice not in selection_options:
+        print("""
+
+1. Check Inventory Due Date of a Client
+2. Add Another Record
+3. View Data for Specific Client
+4. Done Entering Records
+5. Returns to This Help Menu
 
 Tasks can include:
 Prep Work
@@ -49,12 +38,37 @@ Physical Counts
 Auditing
 Clean Up
 """)
+        user_choice = input("Enter option number: ")
 
-show_help()
+    if user_choice == selection_options[0]:
+        check_dueDate()
+    elif user_choice == selection_options[1]:
+        new_entry()
+    elif user_choice == selection_options[2]:
+        req_client = input("Enter client to view data: ",)
+        print("\n")
+        getClientInfo(req_client)
+    # elif user_choice == selection_options[3]:
+    #     break
+    elif user_choice == selection_options[4]:
+        show_help()
+
+def check_dueDate():
+    clients_byWHS = {
+        "Dog Toys Ltd" : "January",
+        "Guitar World": "February",
+        "Candles and Candles": "April",
+        "Purses and More": "July"   
+    }
+
+    pi_due = input("Enter client for PI due date: ")
+
+    print(clients_byWHS[pi_due])
+
+    time.sleep(3)
+    intro()
 
 def new_entry():
-
-
     add_date_to_list = str(input("Enter record date: "))
     record_list.append(add_date_to_list)
             
@@ -90,36 +104,17 @@ def new_entry():
     record_list.clear()
 
 
-while True:
-    new_record = input("> ")
-    if new_record == 'NR':
-        new_entry()
-    elif new_record == 'DONE':
-        break
-    elif new_record == 'HELP':
-        break
+    while True:
+        new_record = input("> ")
+        if new_record == '2':
+            new_entry()
+        elif new_record == '4':
+            break
+        elif new_record == '5':
+            break
 
-
-
-def view(task=None):
-    conn = db.connect("tracker.db")
-    cur = conn.cursor()
-    if task:
-        sql = '''
-        select * from tasks where task = '{}'
-        '''.format(task)
-    else:
-        sql = '''
-        select * from tasks
-        '''.format(task)
-    cur.execute(sql)
-    results = cur.fetchall()
-    return results
-
-print (view())
-
-#Pulls records from database by client to show all tasks, hours and dates associated with a particular
-#client.  Also shows count of how many records.
+    time.sleep(3)
+    intro()
 
 def getClientInfo(client):
 
@@ -138,7 +133,26 @@ def getClientInfo(client):
 
     cur.close()
 
-req_client = input("Enter client to view data: ",)
-print("\n")
-    
-getClientInfo(req_client)
+    time.sleep(3)
+    intro()
+
+# def view(task=None):
+#     conn = db.connect("tracker.db")
+#     cur = conn.cursor()
+#     if task:
+#         sql = '''
+#         select * from tasks where task = '{}'
+#         '''.format(task)
+#     else:
+#         sql = '''
+#         select * from tasks
+#         '''.format(task)
+#     cur.execute(sql)
+#     results = cur.fetchall()
+#     return results
+
+# print (view())
+
+# Main Program
+
+intro()
