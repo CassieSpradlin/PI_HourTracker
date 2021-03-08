@@ -21,7 +21,7 @@ record_list = []
 #Functions
 
 def intro():
-    selection_options = ["1", "2", "3", "4", "5"]
+    selection_options = ["1", "2", "3", "4", "5","0"]
     user_choice = ""
     while user_choice not in selection_options:
         print("""
@@ -31,6 +31,8 @@ def intro():
 3. View Data for Specific Client
 4. Done Entering Records
 5. Returns to This Help Menu
+
+0. Quit
 
 Tasks can include:
 Prep Work
@@ -51,7 +53,9 @@ Clean Up
     # elif user_choice == selection_options[3]:
     #     break
     elif user_choice == selection_options[4]:
-        show_help()
+        intro()
+    elif user_choice == selection_options[5]:
+        exit()
 
 def check_dueDate():
     clients_byWHS = {
@@ -109,8 +113,10 @@ def new_entry():
         if new_record == '2':
             new_entry()
         elif new_record == '4':
-            break
+            intro()
         elif new_record == '5':
+            intro
+        elif new_record == '0':
             break
 
     time.sleep(3)
