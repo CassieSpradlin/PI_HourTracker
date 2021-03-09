@@ -1,3 +1,4 @@
+import datetime
 import sqlite3 as db
 import time
 
@@ -59,17 +60,21 @@ Clean Up
 
 def check_dueDate():
     clients_byWHS = {
-        "Dog Toys Ltd" : "January",
-        "Guitar World": "February",
-        "Candles and Candles": "April",
-        "Purses and More": "July"   
+        "Dog Toys Ltd" : datetime.date(2021, 7, 15),
+        "Guitar World": datetime.date(2021, 7, 25),
+        "Candles and Candles": datetime.date(2022, 1, 5),
+        "Purses and More": datetime.date(2021, 10, 1)   
     }
 
     pi_due = input("Enter client for PI due date: ")
 
-    print(clients_byWHS[pi_due])
+    print("The due date for this inventory is {}".format(clients_byWHS[pi_due]))
 
-    time.sleep(3)
+    today = datetime.date.today()
+    delta = clients_byWHS[pi_due] - today
+    print( "There are %d days remaining until inventory must be completed." % (delta.days))
+
+    time.sleep(5)
     intro()
 
 def new_entry():
