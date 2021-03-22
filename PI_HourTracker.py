@@ -1,6 +1,11 @@
 import datetime
 import sqlite3 as db
 import time
+#import tkinter
+#top = tkinter.Tk()
+
+
+#top.mainloop()
 
 def init():
     conn = db.connect("tracker.db")
