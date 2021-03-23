@@ -1,11 +1,23 @@
 import datetime
 import sqlite3 as db
 import time
-#import tkinter
-#top = tkinter.Tk()
+# from tkinter import *
+# from tkinter.ttk import *
+
+# window = Tk()
+
+# window.title("PI Hour Tracker")
+# window.geometry('400x400')
 
 
-#top.mainloop()
+# combo = Combobox(window)
+
+# combo['values'] = (1, 2, 3, 4, 5, 0)
+
+# combo.current(0)
+# combo.grid(column = 5, row = 5)
+
+# window.mainloop()
 
 def init():
     conn = db.connect("tracker.db")
@@ -36,15 +48,10 @@ def intro():
 2. Add Another Record
 3. View Data for Specific Client
 4. Done Entering Records
-5. Returns to This Help Menu
+5. Return to Help Menu
 
 0. Quit
 
-Tasks can include:
-Prep Work
-Physical Counts
-Auditing
-Clean Up
 """)
         user_choice = input("Enter option number: ")
 
@@ -53,6 +60,13 @@ Clean Up
     elif user_choice == selection_options[1]:
         new_entry()
     elif user_choice == selection_options[2]:
+        print("""
+Select:
+*Candles and Candles
+*Dog Toys Ltd
+*Guitar World
+*Purses and More
+""")
         req_client = input("Enter client to view data: ",)
         print("\n")
         getClientInfo(req_client)
@@ -70,7 +84,13 @@ def check_dueDate():
         "Candles and Candles": datetime.date(2022, 1, 5),
         "Purses and More": datetime.date(2021, 10, 1)   
     }
-
+    print("""
+Select:
+*Candles and Candles
+*Dog Toys Ltd
+*Guitar World
+*Purses and More
+""")
     pi_due = input("Enter client for PI due date: ")
 
     print("The due date for this inventory is {}".format(clients_byWHS[pi_due]))
@@ -83,14 +103,37 @@ def check_dueDate():
     intro()
 
 def new_entry():
-    add_date_to_list = str(input("Enter record date: "))
+    add_date_to_list = str(input("Enter record date (m/d/yyyy): "))
     record_list.append(add_date_to_list)
+
+    print("""
+Select:
+*Indianapolis
+*Louisville
+*Nashville
+*Orlando
+""")
             
     add_warehouse_to_list = str(input("Enter warehouse: "))
     record_list.append(add_warehouse_to_list)
+
+    print("""
+Select:
+*Candles and Candles
+*Dog Toys Ltd
+*Guitar World
+*Purses and More
+""")
             
     add_client_to_list = str(input("Enter client: "))
     record_list.append(add_client_to_list)
+
+    print("""
+*Prep Work
+*Physical Counts
+*Auditing
+*Clean Up   
+""")
 
     add_task_to_list = str(input("Enter task: "))
     record_list.append(add_task_to_list)
@@ -116,6 +159,9 @@ def new_entry():
     log(record_list[0], record_list[1], record_list[2], record_list[3], record_list[4])
 
     record_list.clear()
+
+    print("\n\nSelect: \n2. Add Another Record \n4. Done Entering Records")
+
 
 
     while True:
