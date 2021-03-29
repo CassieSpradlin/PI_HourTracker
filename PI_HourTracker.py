@@ -44,16 +44,16 @@ def intro():
     while user_choice not in selection_options:
         print("""
 
-1. Check Inventory Due Date of a Client
-2. Add Another Record
-3. View Data for Specific Client
-4. Done Entering Records
-5. Return to Help Menu
+\t1. Check Inventory Due Date of a Client
+\t2. Add Another Record
+\t3. View Data for Specific Client
+\t4. Done Entering Records
+\t5. Return to Help Menu
 
-0. Quit
+\t0. Quit
 
 """)
-        user_choice = input("Enter option number: ")
+        user_choice = input("\tEnter option number: ")
 
     if user_choice == selection_options[0]:
         check_dueDate()
@@ -61,13 +61,13 @@ def intro():
         new_entry()
     elif user_choice == selection_options[2]:
         print("""
-Select:
-*Candles and Candles
-*Dog Toys Ltd
-*Guitar World
-*Purses and More
+\tSelect:
+\t*Candles and Candles
+\t*Dog Toys Ltd
+\t*Guitar World
+\t*Purses and More
 """)
-        req_client = input("Enter client to view data: ",)
+        req_client = input("\tEnter client to view data: ",)
         print("\n")
         getClientInfo(req_client)
     # elif user_choice == selection_options[3]:
@@ -85,60 +85,60 @@ def check_dueDate():
         "Purses and More": datetime.date(2021, 10, 1)   
     }
     print("""
-Select:
-*Candles and Candles
-*Dog Toys Ltd
-*Guitar World
-*Purses and More
+\tSelect:
+\t*Candles and Candles
+\t*Dog Toys Ltd
+\t*Guitar World
+\t*Purses and More
 """)
-    pi_due = input("Enter client for PI due date: ")
+    pi_due = input("\tEnter client for PI due date: ")
 
-    print("The due date for this inventory is {}".format(clients_byWHS[pi_due]))
+    print("\tThe due date for this inventory is {}".format(clients_byWHS[pi_due]))
 
     today = datetime.date.today()
     delta = clients_byWHS[pi_due] - today
-    print( "There are %d days remaining until inventory must be completed." % (delta.days))
+    print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
 
     time.sleep(5)
     intro()
 
 def new_entry():
-    add_date_to_list = str(input("Enter record date (m/d/yyyy): "))
+    add_date_to_list = str(input("\tEnter record date (m/d/yyyy): "))
     record_list.append(add_date_to_list)
 
     print("""
-Select:
-*Indianapolis
-*Louisville
-*Nashville
-*Orlando
+\tSelect:
+\t*Indianapolis
+\t*Louisville
+\t*Nashville
+\t*Orlando
 """)
             
-    add_warehouse_to_list = str(input("Enter warehouse: "))
+    add_warehouse_to_list = str(input("\tEnter warehouse: "))
     record_list.append(add_warehouse_to_list)
 
     print("""
 Select:
-*Candles and Candles
-*Dog Toys Ltd
-*Guitar World
-*Purses and More
+\t*Candles and Candles
+\t*Dog Toys Ltd
+\t*Guitar World
+\t*Purses and More
 """)
             
-    add_client_to_list = str(input("Enter client: "))
+    add_client_to_list = str(input("\tEnter client: "))
     record_list.append(add_client_to_list)
 
     print("""
-*Prep Work
-*Physical Counts
-*Auditing
-*Clean Up   
+\t*Prep Work
+\t*Physical Counts
+\t*Auditing
+\t*Clean Up   
 """)
 
-    add_task_to_list = str(input("Enter task: "))
+    add_task_to_list = str(input("\tEnter task: "))
     record_list.append(add_task_to_list)
 
-    add_hours_to_list = float(input("Enter hours: "))
+    add_hours_to_list = float(input("\tEnter hours: "))
     record_list.append(add_hours_to_list)
 
     def log(date, warehouse, client, task, hours):
@@ -160,7 +160,7 @@ Select:
 
     record_list.clear()
 
-    print("\n\nSelect: \n2. Add Another Record \n4. Done Entering Records")
+    print("\n\n\tSelect: \n\t2. Add Another Record \n\t4. Done Entering Records")
 
 
 
@@ -185,13 +185,13 @@ def getClientInfo(client):
     cur = conn.cursor()
     cur.execute(sql_select_query, (client,))
     records = cur.fetchall()
-    print("Total records for client:  ", len(records),"\n")
+    print("\tTotal records for client:  ", len(records),"\n")
     for row in records:
-        print("date = ", row[0])
-        print("warehouse  = ", row[1])
-        print("client  = ", row[2])
-        print("task  = ", row[3])
-        print("hours  = ", row[4],"\n")
+        print("\tdate = ", row[0])
+        print("\twarehouse  = ", row[1])
+        print("\tclient  = ", row[2])
+        print("\ttask  = ", row[3])
+        print("\thours  = ", row[4],"\n")
 
     cur.close()
 

@@ -7,13 +7,14 @@ Uses:
 - sqlite3
 - time
 
-Does not require any installs.
+Does not require any special installs.
 
 ## Useage
 
-- Program gives options to assess inventory, add records and keep track of upcoming inventories
+- Program allows for checking the due date of an inventory and number of days until it is due.  It also allows for records to be
+    entered that track all hours pertaining to a physical invenotry and also viewing that information.
 - Hours for each activity performed during the inventory are entered and appended to a database which keeps track of the 
-    data for reporting and invoicing purposes
+    data for reporting and invoicing purposes.
 
 ## Features
 
