@@ -1,23 +1,6 @@
 import datetime
 import sqlite3 as db
 import time
-# from tkinter import *
-# from tkinter.ttk import *
-
-# window = Tk()
-
-# window.title("PI Hour Tracker")
-# window.geometry('400x400')
-
-
-# combo = Combobox(window)
-
-# combo['values'] = (1, 2, 3, 4, 5, 0)
-
-# combo.current(0)
-# combo.grid(column = 5, row = 5)
-
-# window.mainloop()
 
 def init():
     conn = db.connect("tracker.db")
@@ -62,16 +45,22 @@ def intro():
     elif user_choice == selection_options[2]:
         print("""
 \tSelect:
-\t*Candles and Candles
-\t*Dog Toys Ltd
-\t*Guitar World
-\t*Purses and More
+\t1. Candles and Candles
+\t2. Dog Toys Ltd
+\t3. Guitar World
+\t4. Purses and More
 """)
-        req_client = input("\tEnter client to view data: ",)
+        req_client = input("\tEnter client number to view data: ",)
         print("\n")
-        getClientInfo(req_client)
-    # elif user_choice == selection_options[3]:
-    #     break
+        if req_client == '1':
+            getClientInfo("Candles and Candles")
+        elif req_client == '2':
+            getClientInfo("Dog Toys Ltd")
+        elif req_client == '3':
+            getClientInfo("Guitar World")
+        elif req_client == '4':
+            getClientInfo("Purses and More")
+    
     elif user_choice == selection_options[4]:
         intro()
     elif user_choice == selection_options[5]:
@@ -86,18 +75,36 @@ def check_dueDate():
     }
     print("""
 \tSelect:
-\t*Candles and Candles
-\t*Dog Toys Ltd
-\t*Guitar World
-\t*Purses and More
+\t1. Candles and Candles
+\t2. Dog Toys Ltd
+\t3. Guitar World
+\t4. Purses and More
 """)
-    pi_due = input("\tEnter client for PI due date: ")
+    pi_due = input("\tEnter client number for PI due date: ")
 
-    print("\tThe due date for this inventory is {}".format(clients_byWHS[pi_due]))
+    if pi_due == '1':
+        print("\tThe due date for this inventory is {}".format(clients_byWHS["Candles and Candles"]))
+    elif pi_due == '2':
+        print("\tThe due date for this inventory is {}".format(clients_byWHS["Dog Toys Ltd"]))
+    elif pi_due == '3':
+        print("\tThe due date for this inventory is {}".format(clients_byWHS["Guitar World"]))
+    elif pi_due == '4':
+        print("\tThe due date for this inventory is {}".format(clients_byWHS["Purses and More"]))
 
     today = datetime.date.today()
-    delta = clients_byWHS[pi_due] - today
-    print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
+    if pi_due == '1':
+        delta = clients_byWHS["Candles and Candles"] - today
+        print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
+    elif pi_due == '2':
+        delta = clients_byWHS["Dog Toys Ltd"] - today
+        print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
+    elif pi_due == '3':
+        delta = clients_byWHS["Guitar World"] - today
+        print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
+    elif pi_due == '4':
+        delta = clients_byWHS["Purses and More"] - today
+        print( "\tThere are %d days remaining until inventory must be completed." % (delta.days))
+    
 
     time.sleep(5)
     intro()
@@ -108,35 +115,59 @@ def new_entry():
 
     print("""
 \tSelect:
-\t*Indianapolis
-\t*Louisville
-\t*Nashville
-\t*Orlando
+\t1. Indianapolis
+\t2. Louisville
+\t3. Nashville
+\t4. Orlando
 """)
             
     add_warehouse_to_list = str(input("\tEnter warehouse: "))
-    record_list.append(add_warehouse_to_list)
+    if add_warehouse_to_list == '1':
+        record_list.append("Indianapolis")
+    elif add_warehouse_to_list == '2':
+        record_list.append("Louisville")
+    elif add_warehouse_to_list == '3':
+        record_list.append("Nashville")
+    elif add_warehouse_to_list == '4':
+        record_list.append("Orlando")
+
 
     print("""
 Select:
-\t*Candles and Candles
-\t*Dog Toys Ltd
-\t*Guitar World
-\t*Purses and More
+\t1. Candles and Candles
+\t2. Dog Toys Ltd
+\t3. Guitar World
+\t4. Purses and More
 """)
             
     add_client_to_list = str(input("\tEnter client: "))
-    record_list.append(add_client_to_list)
+    if add_client_to_list == '1':
+        record_list.append("Candles and Candles")
+    elif add_client_to_list == '2':
+        record_list.append("Dog Toys Ltd")
+    elif add_client_to_list == '3':
+        record_list.append("Guitar World")
+    elif add_client_to_list == '4':
+        record_list.append("Purses and More")
+    
 
     print("""
-\t*Prep Work
-\t*Physical Counts
-\t*Auditing
-\t*Clean Up   
+\t1. Prep Work
+\t2. Physical Counts
+\t3. Auditing
+\t4. Clean Up   
 """)
 
     add_task_to_list = str(input("\tEnter task: "))
-    record_list.append(add_task_to_list)
+    if add_task_to_list == '1':
+        record_list.append("Prep Work")
+    elif add_task_to_list == '2':
+        record_list.append("Physical Counts")
+    elif add_task_to_list == '3':
+        record_list.append("Auditing")
+    elif add_task_to_list == '4':
+        record_list.append("Clean Up")
+    
 
     add_hours_to_list = float(input("\tEnter hours: "))
     record_list.append(add_hours_to_list)
@@ -195,26 +226,7 @@ def getClientInfo(client):
 
     cur.close()
 
-    time.sleep(3)
+    time.sleep(4)
     intro()
-
-# def view(task=None):
-#     conn = db.connect("tracker.db")
-#     cur = conn.cursor()
-#     if task:
-#         sql = '''
-#         select * from tasks where task = '{}'
-#         '''.format(task)
-#     else:
-#         sql = '''
-#         select * from tasks
-#         '''.format(task)
-#     cur.execute(sql)
-#     results = cur.fetchall()
-#     return results
-
-# print (view())
-
-# Main Program
 
 intro()
